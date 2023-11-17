@@ -1,8 +1,8 @@
 function GameBoard() {
     let board = [
-        0,0,0,
-        0,0,0,
-        0,0,0
+        ' ',' ',' ',
+        '','','',
+        '','',''
     ];
 
     const getBoard = () => board;
@@ -26,7 +26,7 @@ function GameControler(){
         }
     ];
 
-    activePlayer = players[0] //Player one by default
+    activePlayer = players[0] //PlayerOne by default
 
     const switchPlayer = () =>{
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
@@ -38,11 +38,75 @@ function GameControler(){
         console.log(board[squere]);
     }
 
-    const playRound = () => {
-        player = getActivePlayer();
-        setMarker(player.value,squere);
+    const winnerCheck = () => {
+        const board = gameboard.getBoard();
+        console.log(board)
+        let stringCheck = '';
+        let tieCheck = '';
+        for(let i = 0; i < board.length; i++){
+            switch(i){
+                case 0:
+                    tieCheck += board[0] + board[1] + board[2];
+                    stringCheck = board[0] + board[1] + board[2];
+                    break;
+                case 1:
+                    tieCheck += board[3] + board[4] + board[5];
+                    stringCheck = board[3] + board[4] + board[5];
+                    break;
+                case 2:
+                    tieCheck += board[6] + board[7] + board[8];
+                    stringCheck = board[6] + board[7] + board[8];
+                    break;
+                case 3:
+                    tieCheck += board[0] + board[3] + board[6];
+                    stringCheck = board[0] + board[3] + board[6];
+                    break;
+                case 4:
+                    tieCheck += board[1] + board[4] + board[7];
+                    stringCheck = board[1] + board[4] + board[7];
+                    break;
+                case 5:
+                    tieCheck += board[2] + board[5] + board[8];
+                    stringCheck = board[2] + board[5] + board[8];
+                    break;
+                case 6:
+                    tieCheck += board[0] + board[4] + board[8];
+                    stringCheck = board[0] + board[4] + board[8];
+                    break;
+                case 7:
+                    tieCheck += board[2] + board[4] + board[6];
+                    stringCheck = board[2] + board[4] + board[6];
+                    break;
+            }
+            
+            if (stringCheck == "XXX") {
+                return "X";
+            }
+            else if (stringCheck == "OOO") {
+                return "O";
+            }
+            else if(tieCheck.length == 24){
+                return "Tie";
+            }
+        }
+    }
+    const showWinner = () =>{
+        let winner = '';
+        winner = winnerCheck();
+        console.log(winner);
+        if(winner == ''){
+            return;
+        }
+        if(winner == 'X'){
+            console.log("Player One Won!")
+        }else if(winner == 'O'){
+            console.log("Player Two Won!")
+        }else if(winner == 'Tie'){
+            console.log("It's a Tie!")
+        }
     }
     return{
+        showWinner,
         switchPlayer,
         setMarker,
         getActivePlayer
@@ -64,6 +128,7 @@ function DisplayControl(){
             grid.appendChild(squere)
         }
     }
+    
     return{
         updateBoard
     }
@@ -75,6 +140,8 @@ function clickHandler() {
     const click = (i) =>{
         gameControl.setMarker(i);
         display.updateBoard();
+        gameControl.showWinner();
+        gameControl.switchPlayer();
     }
     return {
         click
