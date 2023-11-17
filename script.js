@@ -14,14 +14,15 @@ function GameBoard() {
 const gameboard = GameBoard(); 
 
 function GameControler(){
+    board = gameboard.getBoard();
     const players = [
         {
             name: 'playerOne',
-            marker: 'X'
+            value: 'X'
         },
         {
             name: 'playerTwo',
-            marker: 'O'
+            value: 'O'
         }
     ];
 
@@ -31,11 +32,19 @@ function GameControler(){
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
     }
     const getActivePlayer = () => activePlayer;
-    const setMarker = (marker, squere) => {
-        board[squere].textContent = marker;
+    const setMarker = (squere) => {
+        marker = activePlayer.value
+        board[squere] = marker;
+        console.log(board[squere]);
+    }
+
+    const playRound = () => {
+        player = getActivePlayer();
+        setMarker(player.value,squere);
     }
     return{
         switchPlayer,
+        setMarker,
         getActivePlayer
     }
 }
@@ -46,11 +55,12 @@ function DisplayControl(){
     const grid = document.querySelector('.board')
 
     const updateBoard = () =>{
+        grid.textContent = ''; //Clears grid
         for(let i = 0;i < board.length;i++){
             const squere = document.createElement('button')
             squere.classList.add('squere')
-            squere.textContent = '';
-            squere.addEventListener('click',() => clickHandle.click());
+            squere.textContent = board[i];
+            squere.addEventListener('click',() => clickHandle.click(i));
             grid.appendChild(squere)
         }
     }
@@ -62,8 +72,9 @@ const display = DisplayControl();
 
 function clickHandler() {
     
-    const click = () =>{
-        setMarker();
+    const click = (i) =>{
+        gameControl.setMarker(i);
+        display.updateBoard();
     }
     return {
         click
