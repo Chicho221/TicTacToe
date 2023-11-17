@@ -1,6 +1,6 @@
 function GameBoard() {
     let board = [
-        ' ',' ',' ',
+        '','','',
         '','','',
         '','',''
     ];
@@ -32,15 +32,19 @@ function GameControler(){
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
     }
     const getActivePlayer = () => activePlayer;
+
     const setMarker = (squere) => {
-        marker = activePlayer.value
-        board[squere] = marker;
-        console.log(board[squere]);
+        if(board[squere] == ''){ //Checks if squere is occupied
+            marker = activePlayer.value
+            board[squere] = marker;
+            console.log(board[squere]);
+        }else{
+           return false;  
+        }
     }
 
     const winnerCheck = () => {
         const board = gameboard.getBoard();
-        console.log(board)
         let stringCheck = '';
         let tieCheck = '';
         for(let i = 0; i < board.length; i++){
@@ -138,7 +142,11 @@ const display = DisplayControl();
 function clickHandler() {
     
     const click = (i) =>{
-        gameControl.setMarker(i);
+        if(gameControl.setMarker(i) === false){
+            return;
+        }else{
+            gameControl.setMarker(i)
+        }
         display.updateBoard();
         gameControl.showWinner();
         gameControl.switchPlayer();
@@ -150,6 +158,4 @@ function clickHandler() {
 
 const clickHandle = clickHandler();
 
-const displayControl = DisplayControl();
-
-displayControl.updateBoard();
+display.updateBoard();
