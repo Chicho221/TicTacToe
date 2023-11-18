@@ -14,17 +14,57 @@ body{
     display:flex;
     align-items: center;
     justify-content: center;
-    height: 20vh;
+    height: 15vh;
     color: var(--fontColor);
     font-size: 5rem;
 }
+.turn{
+    display: flex;
+    justify-content: center;
+    color: var(--fontColor);
+    font-size: 2em;
+    padding:1rem;
+}
+.p1{
+    display: inline;
+    background-color: var(--backgroundLight);
+    border-radius: 2em 0em 0em 2em;
+    padding: 0.5rem 2rem 0.5rem 1rem;
+}
+.p2{
+    display: inline;
+    background-color: var(--backgroundLight);
+    border-radius: 0em 2em 2em 0em;
+    padding: 0.5rem 1rem 0.5rem 2rem;
+}
+.activeTurn{
+    background-color: var(--borderColor);
+}
 .board{
     display: grid;
+    height: auto;
     padding: 2em 0;
     justify-content: center;
     grid-template-rows: 150px 150px 150px;
     grid-template-columns: 150px 150px 150px;
     background-color: var(--backgroundLight);
+}
+
+.blur{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 20%;
+    width: 100%;
+    height: calc(450px + 4em);
+    background: rgba(255,255,255,.1);
+}
+
+.popmessage{
+    border-radius: 1em;
+    padding: 2em 3em;
+    background-color: #e0f2fe;
 }
 
 .squere{
