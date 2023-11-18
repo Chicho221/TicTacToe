@@ -97,7 +97,6 @@ function GameControler(){
     const showWinner = () =>{
         let winner = '';
         winner = winnerCheck();
-        console.log(winner);
         if(winner == ''){
             return;
         }
@@ -116,8 +115,8 @@ function GameControler(){
         getActivePlayer
     }
 }
-
 const gameControl = GameControler();
+
 function DisplayControl(){
     const board = gameboard.getBoard();
     const grid = document.querySelector('.board')
@@ -127,8 +126,20 @@ function DisplayControl(){
         for(let i = 0;i < board.length;i++){
             const squere = document.createElement('button')
             squere.classList.add('squere')
+            if(i == 0 || i == 1 || i == 2){
+                squere.classList.add('no-top')
+            }
+            if(i == 2 || i == 5 || i == 8){
+                squere.classList.add('no-right')
+            }
+            if(i == 6 || i == 7 || i == 8){
+                squere.classList.add('no-bottom')
+            }
+            if(i == 0 || i == 3 || i == 6){
+                squere.classList.add('no-left')
+            }
             squere.textContent = board[i];
-            squere.addEventListener('click',() => clickHandle.click(i));
+            squere.addEventListener('click',() => clickHandle.clickPlay(i));
             grid.appendChild(squere)
         }
     }
@@ -141,7 +152,7 @@ const display = DisplayControl();
 
 function clickHandler() {
     
-    const click = (i) =>{
+    const clickPlay = (i) =>{
         if(gameControl.setMarker(i) === false){
             return;
         }else{
@@ -152,10 +163,9 @@ function clickHandler() {
         gameControl.switchPlayer();
     }
     return {
-        click
+        clickPlay
     }
 }
-
 const clickHandle = clickHandler();
 
 display.updateBoard();
