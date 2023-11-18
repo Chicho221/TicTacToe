@@ -6,15 +6,23 @@ function GameBoard() {
     ];
 
     const getBoard = () => board;
+    const newBoard = () => {
+        board = [
+            '','','',
+            '','','',
+            '','',''
+        ];
+        console.log(board)
+    }
 
     return{
+        newBoard,
         getBoard
     }
 }
 const gameboard = GameBoard(); 
 
 function GameControler(){
-    board = gameboard.getBoard();
     const players = [
         {
             name: 'playerOne',
@@ -34,6 +42,7 @@ function GameControler(){
     const getActivePlayer = () => activePlayer;
 
     const setMarker = (squere) => {
+        const board = gameboard.getBoard();
         if(board[squere] == ''){ //Checks if squere is occupied
             marker = activePlayer.value
             board[squere] = marker;
@@ -42,7 +51,11 @@ function GameControler(){
            return false;  
         }
     }
-
+    const setDefault = () => {
+        winner = '';
+        activePlayer = players[0]
+        
+    }
     const winnerCheck = () => {
         const board = gameboard.getBoard();
         let stringCheck = '';
@@ -101,14 +114,15 @@ function GameControler(){
             return;
         }
         if(winner == 'X'){
-            console.log("Player One Won!")
+            return 'X'
         }else if(winner == 'O'){
-            console.log("Player Two Won!")
+            return 'O'
         }else if(winner == 'Tie'){
-            console.log("It's a Tie!")
+            return 'Tie'
         }
     }
     return{
+        setDefault,
         showWinner,
         switchPlayer,
         setMarker,
@@ -118,11 +132,34 @@ function GameControler(){
 const gameControl = GameControler();
 
 function DisplayControl(){
-    const board = gameboard.getBoard();
-    const grid = document.querySelector('.board')
-
+    const grid = document.querySelector('.board');
+    const clearBoard = () =>{
+        grid.textContent = '';
+    } 
     const updateBoard = () =>{
-        grid.textContent = ''; //Clears grid
+        const board = gameboard.getBoard();
+        const winner = gameControl.showWinner();
+        clearBoard();
+        if(!winner == ''){
+            const blur = document.createElement('div');
+            blur.classList.add('blur');
+            blur.setAttribute('disabled', '');
+
+            const message = document.createElement('div');
+            message.classList.add('popmessage');
+                if(winner == 'X'){
+                    blur.removeAttribute('disabled', '');
+                    message.textContent = 'Player One Won!'
+                }else if(winner == 'O'){
+                    message.textContent = 'Player Two Won!'
+                }else if(winner == 'Tie'){
+                    message.textContent = "It's a Tie!"
+                }    
+            blur.appendChild(message);
+            blur.addEventListener('click',() => clickHandle.clickNewRound());
+            grid.appendChild(blur);
+        }
+        
         for(let i = 0;i < board.length;i++){
             const squere = document.createElement('button')
             squere.classList.add('squere')
@@ -159,13 +196,22 @@ function clickHandler() {
             gameControl.setMarker(i)
         }
         display.updateBoard();
-        gameControl.showWinner();
         gameControl.switchPlayer();
     }
+    const clickNewRound = () =>{
+        gameControl.setDefault(); //Sets player and winner values to default
+        gameboard.newBoard();//Clears board array
+        display.updateBoard();
+    }
     return {
+        clickNewRound,
         clickPlay
     }
 }
 const clickHandle = clickHandler();
 
 display.updateBoard();
+
+/* WHAT DO WE NEED MORE?
+-KEEP TRACK WHOS TURN IS IT.
+*/
