@@ -127,16 +127,16 @@ function DisplayControl(){
             const squere = document.createElement('button')
             squere.classList.add('squere')
             if(i == 0 || i == 1 || i == 2){
-                squere.classList.add('no-top')
+                squere.classList.add('b-top')
             }
             if(i == 2 || i == 5 || i == 8){
-                squere.classList.add('no-right')
+                squere.classList.add('b-right')
             }
             if(i == 6 || i == 7 || i == 8){
-                squere.classList.add('no-bottom')
+                squere.classList.add('b-bot')
             }
             if(i == 0 || i == 3 || i == 6){
-                squere.classList.add('no-left')
+                squere.classList.add('b-left')
             }
             squere.textContent = board[i];
             squere.addEventListener('click',() => clickHandle.clickPlay(i));
