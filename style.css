@@ -3,9 +3,11 @@
     --fontColor:#e0f2fe;
     --borderColor:#0284c7;
     --backgroundLight:#0c4a6e;
+    --backgroundLightLight:#075985;
     --backgroundDark:#082f49;
 }
 body{
+    cursor: default;
     font-family: var(--font);
     margin: 0;
     background-color: var(--backgroundDark);
@@ -29,13 +31,13 @@ body{
     display: inline;
     background-color: var(--backgroundLight);
     border-radius: 2em 0em 0em 2em;
-    padding: 0.5rem 2rem 0.5rem 1rem;
+    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
 }
 .p2{
     display: inline;
     background-color: var(--backgroundLight);
     border-radius: 0em 2em 2em 0em;
-    padding: 0.5rem 1rem 0.5rem 2rem;
+    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
 }
 .activeTurn{
     background-color: var(--borderColor);
@@ -55,7 +57,7 @@ body{
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 20%;
+    top: 24%;
     width: 100%;
     height: calc(450px + 4em);
     background: rgba(255,255,255,.1);
@@ -73,6 +75,10 @@ body{
     background-color: var(--backgroundLight);
     color: var(--fontColor);
     font-size: 7rem;
+}
+.squere:hover{
+    background-color: var(--backgroundLightLight);
+    cursor: pointer;
 }
 .b-top{
     border-top: 0;

@@ -12,7 +12,6 @@ function GameBoard() {
             '','','',
             '','',''
         ];
-        console.log(board)
     }
 
     return{
@@ -46,7 +45,6 @@ function GameControler(){
         if(board[squere] == ''){ //Checks if squere is occupied
             marker = activePlayer.value
             board[squere] = marker;
-            console.log(board[squere]);
         }else{
            return false;  
         }
@@ -180,8 +178,20 @@ function DisplayControl(){
             grid.appendChild(squere)
         }
     }
-    
+    const checkTurn = () =>{
+        const active = gameControl.getActivePlayer()
+        const p1 = document.querySelector('.p1');
+        const p2 = document.querySelector('.p2');
+        if(active.value == 'X'){
+            p1.classList.add('activeTurn');
+            p2.classList.remove('activeTurn')
+        }else if(active.value == 'O'){
+            p2.classList.add('activeTurn');
+            p1.classList.remove('activeTurn')
+        }
+    }
     return{
+        checkTurn,
         updateBoard
     }
 }
@@ -197,11 +207,13 @@ function clickHandler() {
         }
         display.updateBoard();
         gameControl.switchPlayer();
+        display.checkTurn();
     }
     const clickNewRound = () =>{
         gameControl.setDefault(); //Sets player and winner values to default
         gameboard.newBoard();//Clears board array
         display.updateBoard();
+        display.checkTurn();
     }
     return {
         clickNewRound,
@@ -211,7 +223,3 @@ function clickHandler() {
 const clickHandle = clickHandler();
 
 display.updateBoard();
-
-/* WHAT DO WE NEED MORE?
--KEEP TRACK WHOS TURN IS IT.
-*/
