@@ -22,7 +22,9 @@ body{
 }
 .turn{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
     color: var(--fontColor);
     font-size: 2em;
     padding:1rem;
@@ -44,8 +46,6 @@ body{
 }
 .board{
     display: grid;
-    height: auto;
-    padding: 2em 0;
     justify-content: center;
     grid-template-rows: 150px 150px 150px;
     grid-template-columns: 150px 150px 150px;
@@ -57,16 +57,23 @@ body{
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 24%;
     width: 100%;
-    height: calc(450px + 4em);
+    height: 450px;
     background: rgba(255,255,255,.1);
 }
 
 .popmessage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     border-radius: 1em;
-    padding: 2em 3em;
+    font-size: 2em;
+    padding: 1em 2em;
     background-color: #e0f2fe;
+}
+.tip{
+    padding-top: 0.5em;
+    font-size: 0.5em;
 }
 
 .squere{

@@ -24,11 +24,11 @@ const gameboard = GameBoard();
 function GameControler(){
     const players = [
         {
-            name: 'playerOne',
+            name: 'Player X',
             value: 'X'
         },
         {
-            name: 'playerTwo',
+            name: 'Player O',
             value: 'O'
         }
     ];
@@ -145,14 +145,18 @@ function DisplayControl(){
 
             const message = document.createElement('div');
             message.classList.add('popmessage');
+            const tipMessage = document.createElement('div');
+            tipMessage.classList.add('tip');
+            tipMessage.textContent = 'Click on the board to play again!';
                 if(winner == 'X'){
                     blur.removeAttribute('disabled', '');
-                    message.textContent = 'Player One Won!'
+                    message.textContent = 'Player X Won!'
                 }else if(winner == 'O'){
-                    message.textContent = 'Player Two Won!'
+                    message.textContent = 'Player O Won!'
                 }else if(winner == 'Tie'){
                     message.textContent = "It's a Tie!"
-                }    
+                }
+            message.appendChild(tipMessage);
             blur.appendChild(message);
             blur.addEventListener('click',() => clickHandle.clickNewRound());
             grid.appendChild(blur);
@@ -182,10 +186,13 @@ function DisplayControl(){
         const active = gameControl.getActivePlayer()
         const p1 = document.querySelector('.p1');
         const p2 = document.querySelector('.p2');
+        const name = document.querySelector('.activeName')
         if(active.value == 'X'){
+            name.textContent = active.name + ' Turn'
             p1.classList.add('activeTurn');
             p2.classList.remove('activeTurn')
         }else if(active.value == 'O'){
+            name.textContent = active.name + ' Turn'
             p2.classList.add('activeTurn');
             p1.classList.remove('activeTurn')
         }
